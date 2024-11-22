@@ -17,6 +17,14 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: 'Hookit',
   description: 'Workflow Management System',
+  openGraph: {
+    title: 'Hookit',
+    description: 'Workflow Management System',
+    type: 'website',
+    url: 'https://hookit.vercel.app',
+    images: ['https://hookit.vercel.app/og-image.png'],
+    siteName: 'Hookit',
+  },
 };
 
 export default function RootLayout({
