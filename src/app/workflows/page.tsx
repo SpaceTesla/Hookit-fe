@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   SidebarInset,
   SidebarProvider,
@@ -14,13 +13,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-
-const workflows = [
-  { title: 'Tasks Allotted', value: 22000 },
-  { title: 'Tasks Consumed', value: 18000 },
-  { title: 'Tasks Remaining', value: 4000 },
-  { title: 'Free Tasks Consumed', value: 200 },
-];
 
 const Page = () => {
   return (
