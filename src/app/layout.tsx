@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
@@ -15,19 +16,14 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: 'Hookit',
-  description: 'Workflow management system',
+  description: 'Workflow Management System',
 };
 
 export default function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { slug?: string }; // Modify this if your params structure is different
 }>) {
-  const pathname = `/${Array.isArray(params.slug) ? params.slug.join('/') : ''}`;
-  const isIndexPage = pathname === '/';
-
   return (
     <html lang="en">
       <body
