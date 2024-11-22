@@ -33,8 +33,8 @@ import {
 const data = {
   user: {
     name: 'Okarun',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    email: 'okarun@hookit.com',
+    avatar: '/okarun.jpg',
   },
   folders: [
     {

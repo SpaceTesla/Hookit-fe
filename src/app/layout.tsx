@@ -15,7 +15,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: 'Hookit',
-  description: 'Hookit! create hooks',
+  description: 'Workflow management system',
 };
 
 export default function RootLayout({
