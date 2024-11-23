@@ -1,22 +1,23 @@
-// import { NextRequest, NextResponse } from "next/server";
-// import RazorPay from "razorpay"
+import Razorpay from 'razorpay';
+import { NextRequest, NextResponse } from 'next/server';
 
-// const razorpay = new RazorPay({
-//     key_id: process.env.RAZORPAY_KEY_ID!,
-//     key_secret: process.env.RAZORPAY_KEY_SECRET!
-// })
+const razorpay = new Razorpay({
+ key_id: process.env.key_id!,
+ key_secret: process.env.key_secret,
+});
 
-// export async function POST(request: NextRequest) {
-//     try {
-//         const order = await razorpay.orders.create({
-//             amount : 100*100,
-//             currency :"INR",
-//             receipt :"receipt#1",
-//         })
+export async function POST(request: NextRequest) {
+ const { amount, currency } = (await request.json()) as {
+  amount: string;
+  currency: string;
+ };
 
-//         return NextResponse.json({ orderId: order.id}, {status: 200})
-//         } catch (error) {
-//             return NextResponse.json({ error }, { status: 500 })
-            
-//     }
-// }
+ var options = {
+  amount: amount,
+  currency: currency,
+  receipt: 'rcp1',
+ };
+ const order = await razorpay.orders.create(options);
+ console.log(order);
+ return NextResponse.json({ orderId: order.id }, { status: 200 });
+}
