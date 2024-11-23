@@ -100,7 +100,7 @@ const data = {
 
     {
       title: 'Chat',
-      url: '#',
+      url: '/chat',
       icon: Bot,
       items: [
         {
@@ -120,7 +120,7 @@ const data = {
 
     {
       title: 'History',
-      url: '#',
+      url: '/history',
       icon: HistoryIcon,
       items: [
         {
@@ -143,7 +143,7 @@ const data = {
     },
     {
       title: 'Settings',
-      url: '#',
+      url: '/settings',
       icon: Settings2,
       items: [
         {

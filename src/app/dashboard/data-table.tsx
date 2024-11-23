@@ -224,7 +224,7 @@ export function DataTable({ data }: { data: Workflow[] }) {
         <Link href="/workflows">
           <Button className="default ml-4">
             <Plus className="h-4 w-4" />
-            Create Workflow
+            Create workflow
           </Button>
         </Link>
       </div>

@@ -39,7 +39,7 @@ export default function FloatingCode() {
       {codeSnippets.map((snippet, index) => (
         <motion.div
           key={index}
-          className="absolute font-mono text-sm text-white text-opacity-30 sm:text-base md:text-lg"
+          className="absolute font-mono text-sm text-white text-opacity-70 sm:text-base md:text-lg"
           initial={{
             opacity: 0,
             x: Math.random() * windowSize.width,

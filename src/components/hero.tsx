@@ -39,14 +39,14 @@ export default function Hero() {
         <ul className="flex justify-center space-x-8 text-secondary-foreground">
           <li
             className={
-              'underline transition duration-300 ease-in-out hover:no-underline'
+              'text-primary-foreground underline transition duration-300 ease-in-out hover:no-underline'
             }
           >
             <Link href={'/'} className={''}>
               Home
             </Link>
           </li>
-          <li className={'hover:underline'}>
+          <li className={'text-primary-foreground hover:underline'}>
             <Link href={'/'}>Why Choose Us?</Link>
           </li>
         </ul>
@@ -118,7 +118,7 @@ export default function Hero() {
         </div>
         <div
           onClick={scrollToTeam}
-          className="absolute bottom-16 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-primary text-black text-primary-foreground"
+          className="absolute bottom-8 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-primary text-black text-primary-foreground"
         >
           <FontAwesomeIcon icon={faArrowDown} size={'xl'} />
         </div>
