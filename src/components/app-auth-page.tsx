@@ -47,8 +47,8 @@ export function AuthPage() {
     }
 
     const url = isLogin
-      ? 'https://243e-119-82-122-154.ngrok-free.app/user/login'
-      : 'https://243e-119-82-122-154.ngrok-free.app/user/register';
+      ? 'https://97a8-119-82-122-154.ngrok-free.app/user/login'
+      : 'https://97a8-119-82-122-154.ngrok-free.app/user/register';
 
     const body = isLogin ? { email, password } : { email, password, name };
 
