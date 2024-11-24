@@ -6,6 +6,7 @@ import {
 import { AppSidebar } from '@/components/app-sidebar';
 
 import Header from '@/components/app-header';
+import ExpandableDivList from '@/components/app-webhooks';
 
 const workflows = [
   { title: 'Tasks Allotted', value: 22000 },
@@ -18,13 +19,18 @@ interface HeaderProps {
   pageName: string;
 }
 
+interface WorkflowCardProps {
+  title: string;
+  icon: React.ReactNode;
+}
+
 const Page = () => {
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
         <Header pageName={'Workflows'} />
-        Workflow Page
+        <ExpandableDivList />
       </SidebarInset>
     </SidebarProvider>
   );

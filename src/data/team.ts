@@ -31,7 +31,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: 'Somnath Umapathi',
-    designation: 'Frontend Developer',
+    designation: 'Full Stack Developer',
     src: '/team/somnath.png',
     quote:
       "I know frontend + backend + app dev + blockchain + cloud. (I'm always late for hackathons)",

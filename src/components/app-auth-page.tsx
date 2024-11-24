@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import Cookies from 'js-cookie';
+
 import {
   Card,
   CardContent,
@@ -44,23 +46,38 @@ export function AuthPage() {
       return;
     }
 
+    const url = isLogin
+      ? 'https://243e-119-82-122-154.ngrok-free.app/user/login'
+      : 'https://243e-119-82-122-154.ngrok-free.app/user/register';
+
+    const body = isLogin ? { email, password } : { email, password, name };
+
     try {
-      // Here you would typically call your authentication API
-      // For demonstration, we're just simulating an API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log(isLogin ? 'Logging in...' : 'Signing up...', {
-        email,
-        password,
-        name,
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
       });
 
+      if (!response.ok) {
+        throw new Error('Authentication failed');
+      }
+
+      const { data } = await response.json();
+      console.log(data);
+      console.log(isLogin ? 'Logging in...' : 'Signing up...', data);
+      console.log('hi');
       // Simulate successful auth
       router.push('/dashboard');
     } catch (err) {
       setError('Authentication failed. Please try again.');
     }
+    Cookies.set('token', data.data.token, { expires: 60 });
+    Cookies.set('uid', data.data.user.id, { expires: 60 });
+    console.log('Cookies set');
   };
-
   if (isLogin === null) {
     // Return null or loading state until isLogin is set
     return <div>Loading...</div>;
