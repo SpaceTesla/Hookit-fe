@@ -61,7 +61,7 @@ export function AuthPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Authentication failed');
+        console.log('Authentication Failed');
       }
 
       const { data } = await response.json();

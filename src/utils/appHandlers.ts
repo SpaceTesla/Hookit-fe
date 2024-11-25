@@ -1,4 +1,4 @@
-import { NEXT_PUBLIC_API_URL } from '@/config';
+// import { NEXT_PUBLIC_API_URL } from '@/config';
 // import Cookies from 'js-cookie';
 
 export const handleMongoDBClick = () => {
