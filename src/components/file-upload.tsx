@@ -25,7 +25,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect }) => {
 
   return (
     <div
-      className="relative h-32 w-full cursor-pointer rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 transition-colors duration-300 hover:bg-gray-100"
+      className="border-secondary-border relative m-4 h-32 cursor-pointer rounded-lg border-2 border-dashed bg-secondary transition-colors duration-300 hover:border-primary/30 hover:bg-secondary"
       onClick={handleDivClick}
     >
       <input

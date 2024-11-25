@@ -13,7 +13,7 @@ export const handleMongoDBClick = async () => {
 };
 
 export const handleCreateWebhookClick = async () => {
-  return 'Webhook created successfully!';
+  return 'https://97a8-119-82-122-154.ngrok-free.app/webhook/FBliruHCIycbaE0Nx6TNCJK0fwrEbT9bLMh9WFnAEpE=';
 };
 
 interface ExpandableDivProps {
@@ -70,7 +70,7 @@ const data = [
   },
   {
     title: 'Choose Destination',
-    type: 'source',
+    type: 'destination',
     icon: '🔍',
     description: 'Action: Do this',
     apps: [
@@ -141,6 +141,7 @@ function ExpandableDiv({ item, isExpanded, onToggle }: ExpandableDivProps) {
     console.log('Selected file:', file.name);
   };
 
+  // @ts-ignore
   return (
     <div className="m-4 w-auto overflow-hidden rounded-lg border border-b">
       <div
@@ -172,19 +173,24 @@ function ExpandableDiv({ item, isExpanded, onToggle }: ExpandableDivProps) {
       >
         <div className="flex w-full flex-col p-4">
           {item.apps?.length ? (
-            <div className="flex">
-              {item.apps.map((app) => (
-                <Button
-                  key={app.name}
-                  variant="outline"
-                  className="m-4 flex h-32 flex-1 flex-col items-center justify-center space-y-2"
-                  onClick={app.onClick}
-                >
-                  <span className="text-2xl">{app.icon}</span>
-                  <span className="text-center text-xs">{app.name}</span>
-                </Button>
-              ))}
-            </div>
+            <>
+              <div className="flex">
+                {item.apps.map((app) => (
+                  <Button
+                    key={app.name}
+                    variant="outline"
+                    className="m-4 flex h-32 flex-1 flex-col items-center justify-center space-y-2"
+                    onClick={app.onClick}
+                  >
+                    <span className="text-2xl">{app.icon}</span>
+                    <span className="text-center text-xs">{app.name}</span>
+                  </Button>
+                ))}
+              </div>
+              {item.type === 'source' && (
+                <FileUpload onFileSelect={handleFileSelect} />
+              )}
+            </>
           ) : null}
 
           {item.type === 'webhook' && (

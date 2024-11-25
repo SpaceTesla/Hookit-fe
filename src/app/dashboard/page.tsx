@@ -8,8 +8,6 @@ import {
 
 import { CircleCheckBig, ChartPie, Puzzle, Flame } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import Cookies from 'js-cookie';
 
 import { DataTable } from '@/app/dashboard/data-table';
 import { mockData } from '@/data/tasks';
@@ -24,12 +22,6 @@ import Header from '@/components/app-header';
 export default function Page() {
   const router = useRouter();
 
-  useEffect(() => {
-    const token = Cookies.get('token');
-    if (!token) {
-      router.push('/auth'); // Redirect if no token
-    }
-  }, []);
   const tasks = [
     { title: 'Tasks Allotted', value: 22000, icons: CircleCheckBig },
     { title: 'Tasks Consumed', value: 18000, icons: ChartPie },
