@@ -113,7 +113,9 @@ export default function Hero() {
             </Link>
           </motion.div>
           <motion.div>
-            <div className={'mt-8'}>Powered by GoFr</div>
+            <div className={'mt-8'}>
+              Powered by <span className={'font-bold'}>GoFr</span>
+            </div>
           </motion.div>
         </div>
         <div

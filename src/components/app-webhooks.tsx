@@ -4,36 +4,37 @@ import React, { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FileUpload } from '@/components/file-upload';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
-// Updated mock handlers to return strings
-export const handleMongoDBClick = async () => {
+export const handleMongoDBClick = async (): Promise<string> => {
   return 'MongoDB connected!';
 };
 
-export const handleCreateWebhookClick = async () => {
+export const handleCreateWebhookClick = async (): Promise<string> => {
   return 'https://97a8-119-82-122-154.ngrok-free.app/webhook/FBliruHCIycbaE0Nx6TNCJK0fwrEbT9bLMh9WFnAEpE=';
 };
 
+interface App {
+  name: string;
+  icon: string;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
+
+interface ExpandableDivItem {
+  title: string;
+  type: 'webhook' | 'source' | 'filter' | 'destination';
+  description: string;
+  icon: string;
+  apps?: App[];
+  onClick?: () => Promise<string>;
+}
+
 interface ExpandableDivProps {
-  item: {
-    title: string;
-    type: string;
-    description: string;
-    icon: string;
-    apps?: Array<{
-      name: string;
-      icon: string;
-      onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    }>;
-    onClick?: () => Promise<string>;
-  };
+  item: ExpandableDivItem;
   isExpanded: boolean;
   onToggle: () => void;
 }
 
-const data = [
+const data: ExpandableDivItem[] = [
   {
     title: 'Create Webhook',
     type: 'webhook',
@@ -53,7 +54,7 @@ const data = [
       {
         name: 'MongoDB',
         icon: '🔌',
-        onClick: () => console.log('MongoDB clicked'),
+        onClick: () => handleMongoDBClick(),
       },
       { name: 'Apache Kafka', icon: '📧' },
       { name: 'RabbitMQ', icon: '📬' },
@@ -86,14 +87,14 @@ const data = [
       { name: 'RabbitMQ', icon: '📬' },
       { name: 'HTTP(S) API', icon: '🔍' },
     ],
-    onClick: async () => 'Source selected!',
+    onClick: async () => 'Destination selected!',
   },
 ];
 
 export default function ExpandableDivList() {
-  const [expandedStates, setExpandedStates] = useState<{
-    [key: number]: boolean;
-  }>({});
+  const [expandedStates, setExpandedStates] = useState<Record<number, boolean>>(
+    {},
+  );
 
   const handleToggle = (index: number) => {
     setExpandedStates((prev) => ({
@@ -117,31 +118,29 @@ export default function ExpandableDivList() {
 }
 
 function ExpandableDiv({ item, isExpanded, onToggle }: ExpandableDivProps) {
-  const [myLink, setMyLink] = useState('');
+  const [myLink, setMyLink] = useState<string>('');
 
   useEffect(() => {
     const fetchLink = async () => {
       if (isExpanded && item.onClick) {
         try {
           const link = await item.onClick();
-          if (typeof link === 'string') {
-            setMyLink(link);
-          } else {
-            console.warn('onClick did not return a string:', link);
-          }
+          setMyLink(link);
         } catch (error) {
           console.error('Error in onClick handler:', error);
         }
       }
     };
-    fetchLink();
-  }, [isExpanded]);
+    fetchLink().then(
+      () => console.log('Link fetched!'),
+      (error) => console.error('Error fetching link:', error),
+    );
+  }, [isExpanded, item]);
 
   const handleFileSelect = (file: File) => {
     console.log('Selected file:', file.name);
   };
 
-  // @ts-ignore
   return (
     <div className="m-4 w-auto overflow-hidden rounded-lg border border-b">
       <div
@@ -168,41 +167,36 @@ function ExpandableDiv({ item, isExpanded, onToggle }: ExpandableDivProps) {
 
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isExpanded ? 'max-h-200 border-t' : 'max-h-0'
+          isExpanded ? 'max-h-[600px] border-t' : 'max-h-0'
         }`}
       >
         <div className="flex w-full flex-col p-4">
-          {item.apps?.length ? (
-            <>
-              <div className="flex">
-                {item.apps.map((app) => (
-                  <Button
-                    key={app.name}
-                    variant="outline"
-                    className="m-4 flex h-32 flex-1 flex-col items-center justify-center space-y-2"
-                    onClick={app.onClick}
-                  >
-                    <span className="text-2xl">{app.icon}</span>
-                    <span className="text-center text-xs">{app.name}</span>
-                  </Button>
-                ))}
-              </div>
-              {item.type === 'source' && (
-                <FileUpload onFileSelect={handleFileSelect} />
-              )}
-            </>
-          ) : null}
+          {item.apps?.length && (
+            <div className="flex">
+              {item.apps.map((app) => (
+                <Button
+                  key={app.name}
+                  variant="outline"
+                  className="m-4 flex h-32 flex-1 flex-col items-center justify-center space-y-2"
+                  onClick={app.onClick}
+                >
+                  <span className="text-2xl">{app.icon}</span>
+                  <span className="text-center text-xs">{app.name}</span>
+                </Button>
+              ))}
+            </div>
+          )}
+
+          {item.type === 'source' && (
+            <FileUpload onFileSelectAction={handleFileSelect} />
+          )}
 
           {item.type === 'webhook' && (
             <div className="flex w-full items-center">
-              <div
-                className={
-                  'flex min-h-[100%] w-full flex-1 items-center rounded-lg rounded-r-none bg-secondary px-2 py-2'
-                }
-              >
+              <div className="flex min-h-[100%] w-full flex-1 items-center rounded-lg rounded-r-none bg-secondary px-2 py-2">
                 {myLink || 'No link available'}
               </div>
-              <Button size={'lg'} className="rounded-l-none">
+              <Button size="lg" className="rounded-l-none">
                 Copy
               </Button>
             </div>

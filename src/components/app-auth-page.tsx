@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Cookies from 'js-cookie';
 
 import {
   Card,
@@ -74,9 +73,9 @@ export function AuthPage() {
     } catch (err) {
       setError('Authentication failed. Please try again.');
     }
-    Cookies.set('token', data.data.token, { expires: 60 });
-    Cookies.set('uid', data.data.user.id, { expires: 60 });
-    console.log('Cookies set');
+    // Cookies.set('token', data.data.token, { expires: 60 });
+    // Cookies.set('uid', data.data.user.id, { expires: 60 });
+    // console.log('Cookies set');
   };
   if (isLogin === null) {
     // Return null or loading state until isLogin is set
@@ -84,7 +83,7 @@ export function AuthPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+    <div className="flex min-h-screen items-center justify-center">
       <Card className="mx-auto w-full max-w-md">
         <CardHeader>
           <CardTitle>{isLogin ? 'Login' : 'Sign Up'}</CardTitle>

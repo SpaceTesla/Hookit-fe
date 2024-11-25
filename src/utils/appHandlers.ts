@@ -1,5 +1,5 @@
 import { NEXT_PUBLIC_API_URL } from '@/config';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
 export const handleMongoDBClick = () => {
   console.log('MongoDB');
@@ -38,16 +38,16 @@ export const handleCreateWebhookClick = async () => {
 
   console.log(JSON.stringify(data));
 
-  const response = await fetch(
-    `${NEXT_PUBLIC_API_URL}/workflow/create?id=${parseInt(Cookies.get('uid'))}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    },
-  );
-  const res = await response.json();
-  return res;
+  // const response = await fetch(
+  //   `${NEXT_PUBLIC_API_URL}/workflow/create?id=${parseInt(Cookies.get('uid'))}`,
+  //   {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(data),
+  //   },
+  // );
+  // const res = await response.json();
+  // return res;
 };

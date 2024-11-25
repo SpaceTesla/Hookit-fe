@@ -4,10 +4,12 @@ import React, { useState, useRef } from 'react';
 import { Upload } from 'lucide-react';
 
 interface FileUploadProps {
-  onFileSelect: (file: File) => void;
+  onFileSelectAction: (file: File) => void;
 }
 
-export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect }) => {
+export const FileUpload: React.FC<FileUploadProps> = ({
+  onFileSelectAction,
+}) => {
   const [fileName, setFileName] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -15,7 +17,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect }) => {
     const file = event.target.files?.[0];
     if (file) {
       setFileName(file.name);
-      onFileSelect(file);
+      onFileSelectAction(file);
     }
   };
 
@@ -25,25 +27,29 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect }) => {
 
   return (
     <div
-      className="border-secondary-border relative m-4 h-32 cursor-pointer rounded-lg border-2 border-dashed bg-secondary transition-colors duration-300 hover:border-primary/30 hover:bg-secondary"
-      onClick={handleDivClick}
+      className={'m-4 rounded-[10px] border-2 border-dashed border-primary/50'}
     >
-      <input
-        type="file"
-        className="hidden"
-        onChange={handleFileChange}
-        ref={fileInputRef}
-      />
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <Upload className="mb-3 h-8 w-8 text-gray-400" />
-        <p className="text-sm text-gray-600">
-          {fileName ? fileName : 'Click to upload or drag and drop'}
-        </p>
-        {!fileName && (
-          <p className="mt-1 text-xs text-gray-500">
-            SVG, PNG, JPG or GIF (max. 800x400px)
+      <div
+        className="relative h-32 cursor-pointer rounded-lg bg-primary/5 transition-colors duration-100 hover:bg-primary/10"
+        onClick={handleDivClick}
+      >
+        <input
+          type="file"
+          className="hidden"
+          onChange={handleFileChange}
+          ref={fileInputRef}
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <Upload className="mb-3 h-8 w-8 text-gray-400" />
+          <p className="text-sm">
+            {fileName ? fileName : 'Click to upload or drag and drop'}
           </p>
-        )}
+          {!fileName && (
+            <p className="mt-1 text-xs">
+              SVG, PNG, JPG or GIF (max. 800x400px){' '}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
